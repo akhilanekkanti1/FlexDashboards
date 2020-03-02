@@ -1,0 +1,64 @@
+---
+title: "Take 2 - March 2nd"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(reactable)
+library(tidyverse)
+library(colorblindr)
+#theme_set(theme_minimal(legend.position= c(0.8, 0.2)))
+
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Scatterplot
+
+```{r}
+
+
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_point(aes(color = Species)) +
+  geom_smooth(color = "magenta") +
+  scale_fill_OkabeIto() +
+  theme_minimal()
+  
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Sepal Length by Species
+
+```{r iris-bar, fig.height=6}
+
+iris %>% 
+  group_by(Species) %>% 
+  summarize(mean_sepal_length = mean(Sepal.Length)) %>% 
+  ungroup() %>% 
+  mutate(Species = fct_reorder(Species, mean_sepal_length)) %>% 
+  ggplot(aes(Species, mean_sepal_length)) +
+  geom_col(fill = "cornflowerblue") +
+  coord_flip() +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(
+    x = NULL,
+    y = "Mean Sepal Length"
+  ) +
+  theme_classic(base_size = 15) 
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
