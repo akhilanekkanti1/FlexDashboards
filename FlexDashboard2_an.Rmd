@@ -11,14 +11,29 @@ library(flexdashboard)
 library(reactable)
 library(tidyverse)
 library(colorblindr)
+library(plotly)
 #theme_set(theme_minimal(legend.position= c(0.8, 0.2)))
 
 ```
 
+
+Data Description {.sidebar}
+===========
+This is a built-in dataset with [R](cran.r-project.org). It's a *fun* data set about **flowers**.
+
+The title does not show up unless it's in mobile mode, or unless the window is squished really small. The title of this sidebar is **Data Description**
+
+
+# iris
+More text to inlcude before the plots and things.
+
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+
 ### Scatterplot
+
+Little baby description about a little baby plot.
 
 ```{r}
 
@@ -32,7 +47,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 
 ```
 
-Column {data-width=350}
+Column {.tabset data-width=650}
 -----------------------------------------------------------------------
 
 ### Sepal Length by Species
@@ -56,9 +71,61 @@ iris %>%
 
 ```
 
-### Chart C
+### Iris Table
 
 ```{r}
 
+reactable::reactable(iris)
+
 ```
 
+# mtcars
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r plot11}
+
+ggplot(mpg, aes(displ, cty)) +
+  geom_point(color = "orange") +
+  geom_smooth() +
+  facet_wrap(~class, ncol = 3) +
+  labs(title = "Classic Plot w. Class But Different")
+
+
+
+```
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+p <- ggplot(mpg, aes(displ, cty)) +
+  geom_point(color = "cornflowerblue") +
+  geom_smooth() +
+  facet_wrap(~class) +
+  labs(title = "Classic Plot w. Class")
+
+ggplotly(p)
+
+
+```
+
+### Chart C
+
+```{r plot31, fig.height = 2}
+
+ggplot(mpg, aes(displ, cty)) +
+  geom_point(color = "magenta") +
+  geom_smooth() +
+  labs(title = "Classic Plot")
+
+```
+
+# reactable
