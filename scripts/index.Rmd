@@ -189,11 +189,11 @@ ggplot(aes(as.factor(district), mean_ab)) +
 
 Community Response {data-orientation=rows} 
 =============
-Row {data-height= 550}
+Row {data-height= 500}
 -----------------------------------------------------------------------
 ### Final Version
 
-```{r plot2.3, fig.height=8, fig.width=12}
+```{r plot2.3, fig.height=6, fig.width=14}
 
 levels1 <- c('Strongly disagree', 'Disagree', 'Agree', 'Strongly agree')
 
@@ -266,7 +266,7 @@ ggplot(aes(question, pct)) +
   geom_abline(aes(intercept = 0, slope = 0), 
                color = "grey40",
                linetype = 2, size = 1) +
-  ylim(-50, 100) +
+  ylim(-25, 100) +
   labs(title = "Responses to Students' Disclosure of Abuse",
         x = "Percent",
         y = NULL,
@@ -275,6 +275,7 @@ ggplot(aes(question, pct)) +
   theme(
         plot.title = element_text(size = 25),
         plot.subtitle = element_text(size = 20),
+        plot.background = element_blank(),
         axis.title.x=element_blank(),
         axis.title.y=element_blank(),
         axis.text.y = element_text(size = 20),
