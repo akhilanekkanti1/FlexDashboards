@@ -4,8 +4,20 @@ subtitle: "Synthesized Data"
 output: 
   flexdashboard::flex_dashboard:
     theme: united
+    source_code: embed
     vertical_layout: fill
+    horizontal_layout: fill
 ---
+
+
+<style type="text/css">
+
+.chart-title {  /* chart_title  */
+   font-size: 15px;
+   font-family: font-family: 'Sen', sans-serif;
+
+</style>
+
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
@@ -101,26 +113,47 @@ p <- p %>%
 
 ```
 
-
 Data Description {.sidebar}
-===========
+=============================
+
+**Background**
+
 The plots displayed on this dashboard are generated from a synthetic dataset intended to represent original data from the *Oregon Child Abuse Prevalence Study (OCAPS) Pilot*.
 
 **The OCAPS pilot surveys high school students across 5 school districts in Lane County to assess students' current experiences of abuse, harrassment, and social support.**
 
 [Daniel Anderson](https://github.com/datalorax) produced this synthetic data using the [synthpop](https://cran.r-project.org/web/packages/synthpop/vignettes/synthpop.pdf) package.
 
-
-
 [Akhila Nekkanti](https://github.com/akhilanekkanti1) created the plots shown using the [ggplot](https://ggplot2.tidyverse.org/reference/ggplot.html) package.
+
+Background {data-orientation=rows} 
+=========================
+
+
+Row {data-height=600}
+---------------------
+### Click the image below to learn more about the Oregon Child Abuse Prevalence Study Pilot, conducted by the University of Oregon's Center for Prevention of Abuse and Neglect. {.no-title}
+
+[![](kids_pic.png)](https://90by30.com/sites/90by30.com/files/resources/OCAPS%20Pilot%2010%20page%20Research%20Summary.pdf){target="_blank"}
+
+
+
+Row 
+-------------------------------
+### Policymakers and funders rely heavily on state-wide child maltreatment data to prioritize public concerns, enact policy, and establish budgets for evidence-based programming (PEW Data Report, 2018). As such, the accurate translation of analyses with such data into visually compelling, easily digestible means is a critical pre-requisite to bridging the gap between advocates, researchers, and legislative bodies. In Oregon these data are dependent on either retrospective surveys with adults (Oregon BRFFS), youth convenience sample surveys with fewer than 10 abuse and neglect items (Oregon Healthy Teens Survey, Oregon Student Wellness Survey), and reports to child protective services (Children’s Bureau, 2019). This critical need for accurate data is met by a glaring gap as researchers and advocates agree that child maltreatment rates in the United States are significantly underreported (Swahn et al., 2006; Flaherty et al., 2008). University of Oregon’s Center for the Prevention of Abuse and Neglect (CPAN) implemented a pilot study to determine safer, more accurate methods of data collection in the school setting. Partnered with the Oregon Department of Education and multiple statewide agencies and advocacy groups, CPAN is currently implementing the first state-wide representative survey of abuse experiences with 1500-1800 youth in Oregon, to be completed in June 2021. 
+
 
 
 
 Abuse Rates
-===================
+===============================================
 
-Column {.tabset .tabset-fade}
+Column {.tabset .tabset-fade }
 -----------------------------------------------------------------------
+### Background
+
+It's valuable to see how abuse rates across school districts in Lane County vary by gender identity. Often times, those who identify as non-binary are not inlcuded in analyses and visualizations due to small samples. A violin plot was helpful in visualizing the varying distributions by gender, but requires some thinking to fully understand. The final plot builds on the simplicity of the bar plot by allowing the reader to compare average scores across all three genders.
+
 
 ### Version 1
 
@@ -157,6 +190,7 @@ ggplot(aes(fct_reorder(district, mean_ab), mean_ab)) +
 
 ```
 
+> Switched to bar plot, and collapsed gender variable.
 
 Column 
 -----------------------------------------------------------------------
@@ -187,9 +221,10 @@ ggplot(aes(as.factor(district), mean_ab)) +
 ```
 
 
-Community Response {data-orientation=rows} 
+Community Response
 =============
-Row {data-height= 500}
+
+Column {data-height= 500}
 -----------------------------------------------------------------------
 ### Final Version
 
@@ -297,8 +332,13 @@ ggplot(aes(question, pct)) +
   
 ```
 
-Row 
+Column {.tabset .tabset-fade}
 -----------------------------------------------------------------------
+### Background
+
+Researchers and policy makers alike are often hesitant to ask participants about their experiences in vulnerable settings (e.g., school) because they don’t want to trigger any past trauma. It’s helpful to see that when students tell others about their experience, the responses are often positive.
+
+Using ggplot rather than the base Likert function in R, allows for “easy” modifcation of plot parameters. The first plot is clear, but is not malleable to changes in size or margins. The final plot builds on the stacked bar plot by layering agreeable responses over negatively coded disagreeable responses, across line. Given the very few disagreeable responses, it made greater sense to sum “Agree with Strongly Agree” and “Disagree with Strongly Disagree” rather than specifying each category separately.
 
 ### Version 1
 
@@ -358,6 +398,11 @@ Foster Care Placement Effects
 
 Column {.tabset .tabset-fade}
 -----------------------------------------------------------------------
+### Background
+
+However, not all students who experience abuse tell someone about it. Does foster care placement impact whether students tell someone? Among those who disclose, who do they turn to?
+
+A heatmap was not very helpful in visualizing these questions because the focus was on abuse score rather than on number of students per type of individual. The final radar plot builds on the second by changing the angle of the map, and clearly shows the relative distribution of students who tell each type of individual. Given the small sample size, adding annotations of percentages for each group didn't seem to be of great value.
 
 ### Version 1
 
@@ -473,7 +518,7 @@ ggplot(aes(told, adults)) +
 
 ggplot(radar, aes(x = told, y = mean_scores, colour = Q12, group = Q12)) +
   geom_line() +
-  coord_polar(theta = "x", direction = ) +
+  coord_polar(theta = "x") +
   scale_y_continuous() +
   scale_x_discrete(labels = wrap_format(10)) +
   labs(title = "") +
@@ -504,7 +549,6 @@ ggplot(radar, aes(x = told)) +
        y = NULL,
        x = NULL,
        fill = "Foster Care") 
-
 
 ```
 
