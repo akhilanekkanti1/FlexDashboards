@@ -116,9 +116,9 @@ p <- p %>%
 Data Description {.sidebar}
 =============================
 
-**Background**
+**Data Source**
 
-The plots displayed on this dashboard are generated from a synthetic dataset intended to represent original data from the *Oregon Child Abuse Prevalence Study (OCAPS) Pilot*.
+The plots displayed on this dashboard are generated from a synthetic dataset intended to represent original data from the Oregon Child Abuse Prevalence Study (OCAPS) Pilot.
 
 **The OCAPS pilot surveys high school students across 5 school districts in Lane County to assess students' current experiences of abuse, harrassment, and social support.**
 
